@@ -26,7 +26,7 @@ dependencies {
 tasks.jar {
   manifest {
     attributes["Main-Class"] = "me.dio.Application"
-  }
+  } // Este trecho significa que: o arquivo .jar será executado pelo method main da classe "me.dio.Application".
 }
 
 tasks.named('test') {

@@ -14,10 +14,10 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin
-@RestController
-@RequestMapping("/users")
-@Tag(name = "Users Controller", description = "RESTful API for managing users.")
+@CrossOrigin // Esta anotação permite que o frontend possa acessar o backend sem problemas de segurança.
+@RestController // Esta anotação indica que este é um controlador RESTful Spring. Significa que ele é um controlador que pode ser acessado através de uma URL que termina com /users.
+@RequestMapping("/users") // Esta anotação indica que este é um endpoint RESTful Spring que aceita requisições HTTP GET e POST. Ele faz com que o frontend possa acessar este endpoint através de uma URL que termina com /users.
+@Tag(name = "Users Controller", description = "RESTful API for managing users.") // Esta anotação define o nome do controller e a descrição do controller.
 public record UserController(UserService userService) {
 
     @GetMapping
