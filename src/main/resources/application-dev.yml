@@ -1,20 +1,24 @@
 spring:
   datasource:
-    url: jdbc:h2:mem:sdw2023
+    url: jdbc:h2:mem:sdw2023 # URL do banco de dados H2 em memória.
     username: sdw2023
-    password:
+    password: # vazio porque facilitar o acesso ao banco de dados no desenvolvimento.
   jpa:
-    show-sql: true
+    show-sql: true # Mostras os comandos SQL gerados pelo JPA no console.
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: update # Opções: create, create-drop, update, validate, none
     properties:
       hibernate:
         format_sql: true
-  h2:
+  h2: # Configurações específicas para o H2
     console:
-      enabled: true
-      path: /h2-console
+      enabled: true # Habilita o console H2
+      path: /h2-console # Define o caminho do console H2 no browser.
       settings:
-        trace: false
-        web-allow-others: false
+        trace: false # Habilita o trace no console H2, que é usado para exibir informações detalhadas sobre o SQL gerado.
+        web-allow-others: false # Permite que apenas o usuário que está logado no console H2 possa acessar o console.
+
+# Para fazer rodar este perfil application-dev, é necessário o seguinte: Pelo Intellij → Run → Edit Configurations → New (Sinal de +) → Escolher Application → Nomear como Application DEV → Escolher a JDK Java 17 (para este projeto) → Escolher o módulo main deste projeto → Escolher e apontar para a classe que tem o method main deste projeto → em Woring directory, colocar o diretório deste projeto → Em Environments variables, adicionar (sinal de +) uma variável com o Name: SPRING_PROFILES_ACTIVE e o Value: dev. Pronto!
+# Agora só rodar o RUN e ver a mágica dos drops e creates.
+# Para visualizar este banco de dados de um modo mais amigável no navegador, é só colocar o seguinte no browser: http://localhost:8080/h2-console (Substituir localhost por 127.0.0.1 se estiver rodando no Docker) → Uma vez aberto, faça o seguinte: Primeiro → Trocar a JDBC URL para jdbc:h2:mem:sdw2023 (como está escrito acima no datasource) → Segundo → Trocar o usuário para sdw2023 → Terceiro → Trocar a senha para (vazio) → Quarto → Clique em OK → Pronto! Estamos no console H2 e podemos visualizar o nosso banco de dados de forma mais amigável no navegador.

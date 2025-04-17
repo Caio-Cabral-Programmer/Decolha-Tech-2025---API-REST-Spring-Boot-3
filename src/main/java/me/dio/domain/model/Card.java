@@ -18,7 +18,7 @@ public class Card {
     @Column(unique = true)
     private String number;
     
-    @Column(name = "available_limit", precision = 13, scale = 2)
+    @Column(name = "available_limit", precision = 13, scale = 2) // Foi trocado o nome limit para available_limit, pois em alguns bancos de dados a palavra limit é uma palavra reservada.
     private BigDecimal limit;
 
     public Long getId() {
