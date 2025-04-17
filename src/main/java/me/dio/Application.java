@@ -16,7 +16,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
  * </p>
  */
 
-@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL")})
+@OpenAPIDefinition(servers = {@Server(url = "/", description = "Default Server URL")}) // Esta anotação foi usada para habilitar HTTPS no Swagger UI, ou seja, para que o Swagger UI seja acessível via HTTPS. Pois o Railway funciona com HTTPS. Daí estava dando conflito.
 @SpringBootApplication
 public class Application {
 	public static void main(String[] args) {
