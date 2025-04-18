@@ -1,10 +1,9 @@
-package me.dio.service.impl;
+package me.dio.service;
 
-import me.dio.domain.model.User;
-import me.dio.domain.repository.UserRepository;
-import me.dio.service.UserService;
-import me.dio.service.exception.BusinessException;
-import me.dio.service.exception.NotFoundException;
+import me.dio.model.User;
+import me.dio.repository.UserRepository;
+import me.dio.exception.BusinessException;
+import me.dio.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

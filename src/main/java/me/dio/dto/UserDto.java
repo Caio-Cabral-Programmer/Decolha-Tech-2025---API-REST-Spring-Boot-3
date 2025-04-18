@@ -1,6 +1,6 @@
-package me.dio.controller.dto;
+package me.dio.dto;
 
-import me.dio.domain.model.User;
+import me.dio.model.User;
 
 import java.util.List;
 

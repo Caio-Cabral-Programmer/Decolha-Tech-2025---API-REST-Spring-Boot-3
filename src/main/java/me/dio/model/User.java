@@ -1,4 +1,4 @@
-package me.dio.domain.model;
+package me.dio.model;
 
 import java.util.List;
 

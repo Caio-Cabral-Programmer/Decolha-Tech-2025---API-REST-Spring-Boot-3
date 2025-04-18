@@ -1,6 +1,6 @@
-package me.dio.controller.dto;
+package me.dio.dto;
 
-import me.dio.domain.model.Account;
+import me.dio.model.Account;
 
 import java.math.BigDecimal;
 

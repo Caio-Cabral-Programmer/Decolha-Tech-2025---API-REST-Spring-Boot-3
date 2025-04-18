@@ -1,6 +1,6 @@
-package me.dio.controller.dto;
+package me.dio.dto;
 
-import me.dio.domain.model.Feature;
+import me.dio.model.Feature;
 
 public record FeatureDto(Long id, String icon, String description) {
 
