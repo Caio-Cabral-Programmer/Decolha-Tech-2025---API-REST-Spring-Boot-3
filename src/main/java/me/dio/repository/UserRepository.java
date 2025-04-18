@@ -13,3 +13,12 @@ public interface UserRepository extends JpaRepository<User, Long> { // Este trec
     boolean existsByCardNumber(String number); // Este method verifica se existe uma entidade de User com o número de cartão especificado. Ou seja, colocamos o nome da Classe Card e o nome do atributo Number no nome deste method para que o JPA entenda que é para fazer um join da tabela Card com a tabela User pelo campo cardNumber da tabela Card. O method retorna um boolean, que indica se a entidade foi encontrada ou não.
 }
 // Não preciso escrever methods CRUD para este method, pois ele é implementado na interface JpaRepository. No banco de dados, essa anotação especifica que o campo "id" será a chave primária da tabela "tb_user" e que o campo "name" será uma coluna da tabela "tb_user".
+
+/*- Ao estender `JpaRepository<User, Long>`, herda automaticamente métodos como:
+    - `findAll()`: Busca todos os usuários
+    - `findById()`: Busca um usuário pelo ID
+    - `save()`: Salva ou atualiza um usuário
+    - `delete()`: Remove um usuário
+    - E muitos outros!
+- Os métodos personalizados `existsByAccountNumber` e `existsByCardNumber` são criados usando a convenção de nomes do Spring Data JPA. O Spring gera automaticamente a implementação baseada no nome do método.
+  */

@@ -16,13 +16,13 @@ public record UserDto(
         List<FeatureDto> features,
         List<NewsDto> news) {
 
-    public UserDto(User model) {
+    public UserDto(User model) { // Este construtor transforma um User (o modelo interno) em um UserDto.
         this(
                 model.getId(),
                 model.getName(),
                 ofNullable(model.getAccount()).map(AccountDto::new).orElse(null),
                 ofNullable(model.getCard()).map(CardDto::new).orElse(null),
-                ofNullable(model.getFeatures()).orElse(emptyList()).stream().map(FeatureDto::new).collect(toList()),
+                ofNullable(model.getFeatures()).orElse(emptyList()).stream().map(FeatureDto::new).collect(toList()), // ofNullable(model.getFeatures()): Verifica se o usuário tem features | .orElse(emptyList()): Se não tiver, usa uma lista vazia | .stream(): Cria um "rio" onde cada feature passa uma por uma | .map(FeatureDto::new): Transforma cada feature em um FeatureDto | .collect(toList()): Junta tudo em uma nova lista
                 ofNullable(model.getNews()).orElse(emptyList()).stream().map(NewsDto::new).collect(toList())
         );
     }

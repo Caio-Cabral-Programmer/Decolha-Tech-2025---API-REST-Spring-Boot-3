@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 @RestController // Esta anotação indica que este é um controlador RESTful Spring. Significa que ele é um controlador que pode ser acessado através de uma URL que termina com /users. Diz ao Spring que esta classe vai receber pedidos pela internet e devolver respostas.
 @RequestMapping("/users") // Esta anotação indica que este é um endpoint RESTful Spring que aceita requisições HTTP GET e POST. Ele faz com que o frontend possa acessar este endpoint através de uma URL que termina com /users. Define o endereço da nossa API. Se nosso site for www.meusite.com, os pedidos serão feitos para www.meusite.com/users.
 @Tag(name = "Users Controller", description = "RESTful API for managing users.") // Esta anotação define o nome do controller e a descrição do controller. Adiciona informação para a documentação da API (usando Swagger).
-public record UserController(UserService userService) { // Este trecho indica que este é um record, que é uma classe que não tem métodos e não tem propriedades.
+public record UserController(UserService userService) {
 
     @GetMapping // Este method é um endpoint GET que aceita requisições HTTP GET. Ele faz com que o frontend possa acessar este endpoint através de uma URL que termina com /users. Define o endereço da nossa API. Se nosso site for www.meusite.com, os pedidos serão feitos para www.meusite.com/users.
     @Operation(summary = "Get all users", description = "Retrieve a list of all registered users") // Esta anotação define a descrição do method. Adiciona informação para a documentação da API (usando Swagger).
     @ApiResponses(value = { // Este trecho define as respostas que o endpoint pode retornar. Adiciona informação para a documentação da API (usando Swagger).
             @ApiResponse(responseCode = "200", description = "Operation successful")
     })
-    public ResponseEntity<List<UserDto>> findAll() { // todo → raio-x deste bloco.
+    public ResponseEntity<List<UserDto>> findAll() {
         var users = userService.findAll();
-        var usersDto = users.stream().map(UserDto::new).collect(Collectors.toList());
-        return ResponseEntity.ok(usersDto);
+        var usersDto = users.stream().map(UserDto::new).collect(Collectors.toList()); // .stream() → abre um fluxo para manipulação | .map(UserDto::new) → Transforma cada objeto User em um objeto UserDto. | collect(Collectors.toList()): coleta os objetos UserDto criados e os transforma em uma lista. | Method Reference (UserDto::new): É um atalho para chamar o construtor de UserDto que aceita um objeto User como parâmetro.
+        return ResponseEntity.ok(usersDto); // ResponseEntity.ok(usersDto); // Retorna status 200 (OK) com a lista de usuários em formato JSON (pois s lista passará pelo Jackson para converter cada objeto User em um objeto JSON).
     }
 
     @GetMapping("/{id}")
