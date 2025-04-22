@@ -1,6 +1,6 @@
 spring:
-  datasource:
-    url: jdbc:h2:mem:sdw2023 # URL do banco de dados H2 em memória.
+  datasource: # Para acessar o Banco de Dados H2 → http://localhost:8080/h2-console/
+    url: jdbc:h2:mem:sdw2023 # JDBC URL do banco de dados H2 em memória.
     username: sdw2023
     password: # vazio porque facilitar o acesso ao banco de dados no desenvolvimento.
   jpa:
