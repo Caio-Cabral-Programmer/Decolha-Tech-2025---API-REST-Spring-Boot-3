@@ -58,7 +58,7 @@ public record UserController(UserService userService) {
     }
 
     @PutMapping("/{id}") // @PutMapping("/{id}"): Responde a pedidos HTTP PUT para /users/1, /users/2, etc.
-    @Operation(summary = "Update a user", description = "Update the data of an existing user based on its ID. OBS.: Para fazer o update, é necessário enviar, no JSON que vai para a API, os IDs do usário (user), conta (account) e cartão (card).")
+    @Operation(summary = "Update a user", description = "Update the data of an existing user based on its ID. OBS.: Para fazer o update, é necessário enviar, no JSON que vai para a API, os IDs do usuário (user), conta (account) e cartão (card).")
     @ApiResponses(value = { 
             @ApiResponse(responseCode = "200", description = "User updated successfully"), // todo → raio-x deste bloco.
             @ApiResponse(responseCode = "404", description = "User not found"),
