@@ -55,7 +55,21 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User update(Long id, User userToUpdate) {
         this.validateChangeableId(id, "updated");
+
         User dbUser = this.findById(id); // this se refere à própria instância da classe UserServiceImpl
+
+        if (!dbUser.getAccount().getNumber().equals(userToUpdate.getAccount().getNumber())) { // Foi acrescentado esse if para resolver o problema de que ele estava lançando a exceção abaixo por encontrar o próprio número da conta.
+            if (userRepository.existsByAccountNumber(userToUpdate.getAccount().getNumber())) {
+                throw new BusinessException("This account number already exists.");
+            }
+        }
+
+        if (!dbUser.getCard().getNumber().equals(userToUpdate.getCard().getNumber())) { // Foi acrescentado esse if para resolver o problema de que ele estava lançando a exceção abaixo por encontrar o próprio número da cartão.
+            if (userRepository.existsByCardNumber(userToUpdate.getCard().getNumber())) {
+                throw new BusinessException("This card number already exists.");
+            }
+        }
+
 
         if (!dbUser.getId().equals(userToUpdate.getId())) {
             throw new BusinessException("Update IDs must be the same. DB User ID: " + dbUser.getId() + ", Update User ID: " + userToUpdate.getId());
