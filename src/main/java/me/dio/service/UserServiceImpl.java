@@ -55,10 +55,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User update(Long id, User userToUpdate) {
         this.validateChangeableId(id, "updated");
-        User dbUser = this.findById(id); // todo → quem é this?
+        User dbUser = this.findById(id); // this se refere à própria instância da classe UserServiceImpl
+
         if (!dbUser.getId().equals(userToUpdate.getId())) {
-            throw new BusinessException("Update IDs must be the same.");
+            throw new BusinessException("Update IDs must be the same. DB User ID: " + dbUser.getId() + ", Update User ID: " + userToUpdate.getId());
         }
+// Problema (erro) no update descoberto! → Para fazer o update, é necessário enviar no JSON para a aplicação os IDs do usário (user), conta (account) e cartão (card).
+        // O que estava acontecendo: O ID do userToUpdate estava indo como NULL e os números da conta e do cartão estão acusando como já existe no banco de dados.
 
         dbUser.setName(userToUpdate.getName());
         dbUser.setAccount(userToUpdate.getAccount());
