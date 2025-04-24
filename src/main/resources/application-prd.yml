@@ -1,19 +1,35 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}?sslmode=require&connectionTimeout=30000&socketTimeout=30000
     username: ${PGUSER}
     password: ${PGPASSWORD}
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 30000
+      max-lifetime: 600000
+      idle-timeout: 30000
+      leak-detection-threshold: 5000
+      initialization-fail-timeout: 0
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: validate # Opções: create, create-drop, update, validate, none | Para a primeira vez, é necessário criar o banco de dados, ou seja, colocar o create no lugar de validade. Depois retornamos para o validate, pois senão toda vez o banco de dados vai ser recriado do zero e perderemos os dados.
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp.use_jdbc_metadata_defaults: false
+        jdbc.time_zone: UTC
 
-# Para fazer rodar este perfil application-prd, é necessário o seguinte: Pelo Intellij → Run → Edit Configurations → New (Sinal de +) → Escolher Application (ou duplicar o já existente) → Nomear como Application PRD → Escolher a JDK Java 17 (para este projeto) → Escolher o módulo main deste projeto → Escolher e apontar para a classe que tem o method main deste projeto → em Woring directory, colocar o diretório deste projeto → Em Environments variables, fazer o seguinte:
-# Primeiro: adicionar (sinal de +) uma variável com o Name: SPRING_PROFILES_ACTIVE e o Value: prd.
-# Segundo: Adicionar (sinal de +) uma variável com o Name: PGHOST e o Value: [o que o railway indicar].
-# Terceiro: Adicionar (sinal de +) uma variável com o Name: PGPORT e o Value: [o que o railway indicar].
-# Quarto: Adicionar (sinal de +) uma variável com o Name: PGDATABASE e o Value: [o que o railway indicar].
-# Quinto: Adicionar (sinal de +) uma variável com o Name: PGUSER e o Value: [o que o railway indicar].
-# Sexto: Adicionar (sinal de +) uma variável com o Name: PGPASSWORD e o Value: [o que o railway indicar].
-# Pronto!
-# Agora só rodar o RUN e ver a mágica dos drops e creates.
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+
+server:
+  shutdown: graceful
