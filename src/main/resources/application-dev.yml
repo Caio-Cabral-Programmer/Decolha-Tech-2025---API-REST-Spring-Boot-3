@@ -3,6 +3,15 @@ spring:
     url: jdbc:h2:mem:sdw2023 # JDBC URL do banco de dados H2 em memória.
     username: sdw2023
     password: # vazio porque facilitar o acesso ao banco de dados no desenvolvimento.
+    hikari:
+      connection-timeout: 30000        # Tempo máximo de espera para obter conexão (30 segundos)
+      minimum-idle: 2                  # Mínimo de conexões ociosas
+      maximum-pool-size: 5             # Máximo de conexões (ajuste com base nos limites do Railway)
+      idle-timeout: 120000             # Tempo que uma conexão pode ficar ociosa (2 minutos)
+      max-lifetime: 1800000            # Tempo máximo que uma conexão pode existir (30 minutos)
+      keepalive-time: 60000            # Manda sinais para manter a conexão viva (1 minuto)
+      validation-timeout: 5000         # Tempo para validar se uma conexão está boa
+      leak-detection-threshold: 60000  # Detecta vazamentos de conexão
   jpa:
     show-sql: true # Mostras os comandos SQL gerados pelo JPA no console.
     open-in-view: false
@@ -18,6 +27,12 @@ spring:
       settings:
         trace: false # Habilita o trace no console H2, que é usado para exibir informações detalhadas sobre o SQL gerado.
         web-allow-others: false # Permite que apenas o usuário que está logado no console H2 possa acessar o console.
+server:
+  tomcat:
+    connection-timeout: 30000          # Timeout para conexões HTTP (30 segundos)
+    max-threads: 200                   # Máximo de threads simultâneas
+    min-spare-threads: 10              # Threads mantidas disponíveis
+  shutdown: graceful                   # Desligamento mais controlado
 
 # Para fazer rodar este perfil application-dev, é necessário o seguinte: Pelo Intellij → Run → Edit Configurations → New (Sinal de +) → Escolher Application → Nomear como Application DEV → Escolher a JDK Java 17 (para este projeto) → Escolher o módulo main deste projeto → Escolher e apontar para a classe que tem o method main deste projeto → em Woring directory, colocar o diretório deste projeto → Em Environments variables, adicionar (sinal de +) uma variável com o Name: SPRING_PROFILES_ACTIVE e o Value: dev. Pronto!
 # Agora só rodar o RUN e ver a mágica dos drops e creates.
