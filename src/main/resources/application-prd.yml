@@ -1,19 +1,26 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}?sslmode=require&reWriteBatchedInserts=true
     username: ${PGUSER}
     password: ${PGPASSWORD}
     hikari:
-      maximum-pool-size: 5
-      minimum-idle: 2
-      idle-timeout: 30000
-      connection-timeout: 20000
-      max-lifetime: 1200000
-      leak-detection-threshold: 60000
+      maximum-pool-size: 3
+      minimum-idle: 1
+      idle-timeout: 10000
+      connection-timeout: 30000
+      max-lifetime: 600000
+      validation-timeout: 5000
+      leak-detection-threshold: 30000
+      connection-test-query: SELECT 1
   jpa:
     open-in-view: false
     hibernate:
       ddl-auto: validate
     properties:
       hibernate:
+        jdbc:
+          batch_size: 10
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
