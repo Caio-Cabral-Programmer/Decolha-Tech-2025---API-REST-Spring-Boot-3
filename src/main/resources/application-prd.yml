@@ -3,8 +3,10 @@ spring:
     url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
     username: ${PGUSER}
     password: ${PGPASSWORD}
+    driver-class-name: org.postgresql.Driver
   jpa:
     open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: validate # Opções: create, create-drop, update, validate, none | Para a primeira vez, é necessário criar o banco de dados, ou seja, colocar o create no lugar de validade. Depois retornamos para o validate, pois senão toda vez o banco de dados vai ser recriado do zero e perderemos os dados.
 
